@@ -1,0 +1,19 @@
+{
+    "version": "1.5.0",
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "outDir": "./bin/"
+    },
+    "filesGlob": [
+        "./src/**/*.ts"
+    ],
+    "files": [
+        "./src/GoogleCalendarApi.d.ts",
+        "./src/MediaStream.d.ts",
+        "./src/UltimateQuebecCalendar.ts",
+        "./src/browser.ts",
+        "./src/chrome.d.ts",
+        "./src/q.d.ts"
+    ]
+}

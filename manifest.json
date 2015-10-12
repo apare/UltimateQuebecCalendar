@@ -1,0 +1,31 @@
+{
+  "name": "Ultimate Quebec Calendar",
+  "version": "2.0",
+  "icons": {
+    "16": "assets/icon16.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  },
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "identity",
+    "webNavigation",
+    "https://www.googleapis.com/*",
+    "http://www.ultimatequebec.ca/*"
+  ],
+  "background": {
+    "scripts": [
+      "lib/q.js",
+      "bin/UltimateQuebecCalendar.js"
+    ]
+  },
+  "page_action": {
+    "default_title": "Ultimate Quebec Calendar"
+  },
+  "manifest_version": 2,
+  "oauth2": {
+    "client_id" : "INSERT_CLIENT_ID",
+    "scopes": ["https://www.googleapis.com/auth/calendar"]
+  }
+}
