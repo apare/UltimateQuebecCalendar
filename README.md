@@ -1,6 +1,5 @@
 <p align="center">
-![Ultimate Québec Calendar](/assets/AJJUQ.jpg)
-</p>
+<img src="https://raw.githubusercontent.com/apare/UltimateQuebecCalendar/master/assets/AJJUQ.jpg" />
 # Ultimate Québec Calendar
 ** The easiest way to manage your ultimate frisbee games**
 
@@ -29,13 +28,15 @@ The `client_id` is a Google Api Client id.
 If you do not have any google Developers project, you can create one at [Google Developers Console](https://console.developers.google.com)
 
 #### Enabled Calendar API
-In the [Google Developers Console](https://console.developers.google.com) go to
+In the [Google Developers Console](https://console.developers.google.com) go to :
+
 1. `APIs & auth > APIs`
 2. `Google Apps APIs > Calendar API`
 3. `Enabled Api`
 
 #### Get Client Id
-In the [Google Developers Console](https://console.developers.google.com) go to
+In the [Google Developers Console](https://console.developers.google.com) go to :
+
 1. `APIs & auth > Credentials`
     * To create an `OAuth client ID`, you must first set a product name on the `OAuth consent screen`
 2. `Credentials > Add credentials > OAuth 2.0 client ID`
