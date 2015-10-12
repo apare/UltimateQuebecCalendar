@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://raw.githubusercontent.com/apare/UltimateQuebecCalendar/master/assets/AJJUQ.jpg" />
+<a href="http://ultimatequebec.ca"><img src="https://raw.githubusercontent.com/apare/UltimateQuebecCalendar/master/assets/AJJUQ.jpg" /></a>
 # Ultimate Québec Calendar
 **The easiest way to manage your ultimate frisbee games**
 
