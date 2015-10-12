@@ -1,7 +1,7 @@
 <p align="center">
 <img src="https://raw.githubusercontent.com/apare/UltimateQuebecCalendar/master/assets/AJJUQ.jpg" />
 # Ultimate Québec Calendar
-** The easiest way to manage your ultimate frisbee games**
+**The easiest way to manage your ultimate frisbee games**
 
 This is the code of the [Ultimate Quebec Calendar Chrome Extension](https://chrome.google.com/webstore/detail/ultimate-quebec-calendar/aeolcjgccondkdodekaofgbkipkepame) that provide an easy way to add your ultimate frisbee game form the site [ultimatequebec.ca](http://ultimatequebec.ca).
 
