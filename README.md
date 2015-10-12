@@ -3,16 +3,16 @@
 # Ultimate Québec Calendar
 **The easiest way to manage your ultimate frisbee games**
 
-This is the code of the [Ultimate Quebec Calendar Chrome Extension](https://chrome.google.com/webstore/detail/ultimate-quebec-calendar/aeolcjgccondkdodekaofgbkipkepame) that provide an easy way to add your ultimate frisbee game form the site [ultimatequebec.ca](http://ultimatequebec.ca).
+This is the code of the [Ultimate Quebec Calendar Chrome Extension](https://chrome.google.com/webstore/detail/ultimate-quebec-calendar/aeolcjgccondkdodekaofgbkipkepame) that provide an easy way to add your ultimate frisbee game from the site [ultimatequebec.ca](http://ultimatequebec.ca).
 
 ## How to install
-If you want to install right form the [Chrome Web Store](https://chrome.google.com/webstore/detail/ultimate-quebec-calendar/aeolcjgccondkdodekaofgbkipkepame)
+If you want to install right from the [Chrome Web Store](https://chrome.google.com/webstore/detail/ultimate-quebec-calendar/aeolcjgccondkdodekaofgbkipkepame)
 
 ## How to build your custom extension
 You will require [Node](https://nodejs.org/en/) and [Typescript](http://www.typescriptlang.org/) to be installed if you want to build your custom extension.
 
 ### Build
-This `tsconfig.json` file allowed you to buid the project by using
+This `tsconfig.json` file allows you to build the project by using
 ```
 $ tsc --project
 ```
