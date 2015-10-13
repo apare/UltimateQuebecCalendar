@@ -13,6 +13,22 @@ module UltimateQuebecCalendar {
     return ret.join("&");
   }
 
+  function errorHandler(tabid: number) {
+    return (error) => {
+      if (error == "Invalid Credentials") {
+        getAuthToken().then((token) => {
+          chrome.identity.removeCachedAuthToken({ token: token }, () => {
+            authToken = null;
+          })
+        })
+      }
+      setPageAction(tabid, 'calendar_error.png', error.toString());
+      chrome.tabs.executeScript(tabid, {
+        code: 'UltimateQuebecCalendar.load([])'
+      });
+    }
+  }
+
   function setupHandler() {
     chrome.runtime.onMessage.addListener((request: { action: string, event: GoogleApi.Event }, sender: chrome.runtime.MessageSender, sendResponse) => {
       var actionPromise: Q.Promise<GoogleApi.Event>;
@@ -28,19 +44,7 @@ module UltimateQuebecCalendar {
           chrome.tabs.executeScript(sender.tab.id, {
             code: 'UltimateQuebecCalendar.updateEvent(' + JSON.stringify(event) + ');'
           });
-        }, (error) => {
-          if (error == "Invalid Credentials") {
-            getAuthToken().then((token) => {
-              chrome.identity.removeCachedAuthToken({ token: token }, () => {
-                authToken = null;
-              })
-            })
-          }
-          setPageAction(sender.tab.id, 'calendar_error.png', error.toString());
-          chrome.tabs.executeScript(sender.tab.id, {
-            code: 'UltimateQuebecCalendar.load([])'
-          });
-        })
+        }, errorHandler(sender.tab.id))
       }
     });
 
@@ -61,7 +65,7 @@ module UltimateQuebecCalendar {
   function tabCompleted(tabId: number) {
     chrome.pageAction.show(tabId);
     chrome.tabs.insertCSS(tabId, {
-      file: 'style.css'
+      file: 'assets/style.css'
     })
     chrome.tabs.executeScript(tabId, {
       file: 'bin/browser.js'
@@ -71,31 +75,14 @@ module UltimateQuebecCalendar {
   }
 
   function initTab(tabId: number) {
-    if (tabs.indexOf(tabId) == -1) {
-      tabs.push(tabId);
-      setPageAction(tabId, 'calendar_loading.png', 'Loading');
-      getEvents()
-        .then((events) => {
-          setPageAction(tabId, 'calendar_ready.png', 'Ready');
-          chrome.tabs.executeScript(tabId, {
-            code: 'UltimateQuebecCalendar.load(' + JSON.stringify(events) + ')'
-          });
-          tabs.splice(tabs.indexOf(tabId), 1);
-        }, (error) => {
-          if (error == "Invalid Credentials") {
-            getAuthToken().then((token) => {
-              chrome.identity.removeCachedAuthToken({ token: token }, () => {
-                authToken = null;
-              })
-            })
-          }
-          setPageAction(tabId, 'calendar_error.png', error);
-          chrome.tabs.executeScript(tabId, {
-            code: 'UltimateQuebecCalendar.load([])'
-          });
-          tabs.splice(tabs.indexOf(tabId), 1);
+    setPageAction(tabId, 'calendar_loading.png', 'Loading');
+    getEvents()
+      .then((events) => {
+        setPageAction(tabId, 'calendar_ready.png', 'Ready');
+        chrome.tabs.executeScript(tabId, {
+          code: 'UltimateQuebecCalendar.load(' + JSON.stringify(events) + ')'
         });
-    }
+      }, errorHandler(tabId));
   }
 
   function setPageAction(tabId: number, icon: string, title: string) {
@@ -111,7 +98,6 @@ module UltimateQuebecCalendar {
 
   var authToken: Q.Promise<string>;
   function getAuthToken() {
-    console.log('getAuthToken');
     if (authToken == null) {
       var deferred = Q.defer<string>();
       authToken = deferred.promise;
@@ -169,7 +155,6 @@ module UltimateQuebecCalendar {
   }
 
   function getCalendar() {
-    console.log('getCalendar');
     var deferred = Q.defer<GoogleApi.Calendar>();
     googleApis('GET', 'calendar/v3/users/me/calendarList', {
       fields: "items(id,summary)"
@@ -194,14 +179,12 @@ module UltimateQuebecCalendar {
   }
 
   function createCalendar() {
-    console.log('createCalendar');
     return googleApis<GoogleApi.Calendar>('POST', 'calendar/v3/calendars', {
       "summary": calendarSummary
     });
   }
 
   function getEvents() {
-    console.log('getEvents');
     return getCalendar()
       .then((calandar) => {
         return googleApis<GoogleApi.EventList>('GET', 'calendar/v3/calendars/' + encodeURIComponent(calandar.id) + '/events', {
@@ -212,7 +195,6 @@ module UltimateQuebecCalendar {
   }
 
   function createEvent(event: GoogleApi.Event) {
-    console.log('createEvent');
     return getCalendar()
       .then((calandar) => {
         return googleApis<GoogleApi.Event>('POST', 'calendar/v3/calendars/' + encodeURIComponent(calandar.id) + '/events', {
@@ -222,7 +204,6 @@ module UltimateQuebecCalendar {
   }
 
   function deleteEvent(event: GoogleApi.Event) {
-    console.log('deleteEvent');
     return getCalendar()
       .then((calandar) => {
         return googleApis('DELETE', 'calendar/v3/calendars/' + encodeURIComponent(calandar.id) + '/events/' + encodeURIComponent(event.id), null)
