@@ -1,7 +1,7 @@
 /// <reference path="./GoogleCalendarApi.d.ts"/>
 
 module UltimateQuebecCalendar {
-
+  
   var oneHour = 1000 * 60 * 60;
   var nextGameSelector = ".user-next-game, .next-games tbody tr";
 
@@ -107,6 +107,9 @@ module UltimateQuebecCalendar {
         summary: summary,
         location: location
       }
+    }
+    
+    if(eventsMap[uid].id == null) {
       initAddButton(button);
     } else {
       initDeleteButton(button);
