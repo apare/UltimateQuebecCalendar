@@ -29,6 +29,13 @@ module UltimateQuebecCalendar {
             code: 'UltimateQuebecCalendar.updateEvent(' + JSON.stringify(event) + ');'
           });
         }, (error) => {
+          if (error == "Invalid Credentials") {
+            getAuthToken().then((token) => {
+              chrome.identity.removeCachedAuthToken({ token: token }, () => {
+                authToken = null;
+              })
+            })
+          }
           setPageAction(sender.tab.id, 'calendar_error.png', error.toString());
           chrome.tabs.executeScript(sender.tab.id, {
             code: 'UltimateQuebecCalendar.load([])'
@@ -75,7 +82,14 @@ module UltimateQuebecCalendar {
           });
           tabs.splice(tabs.indexOf(tabId), 1);
         }, (error) => {
-          setPageAction(tabId, 'calendar_error.png', error.toString());
+          if (error == "Invalid Credentials") {
+            getAuthToken().then((token) => {
+              chrome.identity.removeCachedAuthToken({ token: token }, () => {
+                authToken = null;
+              })
+            })
+          }
+          setPageAction(tabId, 'calendar_error.png', error);
           chrome.tabs.executeScript(tabId, {
             code: 'UltimateQuebecCalendar.load([])'
           });

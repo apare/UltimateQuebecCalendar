@@ -1084,7 +1084,7 @@ declare module chrome.history {
 declare module chrome.identity {
   var getAuthToken: (options: any, cb: (token: string) => void) => void;
   var launchWebAuthFlow: (options: any, cb: (redirect_url: string) => void) => void;
-  var removeCachedAuthToken: (option: any, callback: { (): void }) => void;
+  var removeCachedAuthToken: (option: any, callback?: { (): void }) => void;
 }
 
 

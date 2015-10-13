@@ -9,11 +9,12 @@
         "./src/**/*.ts"
     ],
     "files": [
-        "./src/GoogleCalendarApi.d.ts",
-        "./src/MediaStream.d.ts",
-        "./src/UltimateQuebecCalendar.ts",
-        "./src/browser.ts",
-        "./src/chrome.d.ts",
-        "./src/q.d.ts"
-    ]
+        "src/browser.ts",
+        "src/chrome.d.ts",
+        "src/GoogleCalendarApi.d.ts",
+        "src/MediaStream.d.ts",
+        "src/q.d.ts",
+        "src/UltimateQuebecCalendar.ts"
+    ],
+    "exclude": []
 }
