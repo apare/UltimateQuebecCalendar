@@ -14,7 +14,7 @@ You will require [Node](https://nodejs.org/en/) and [Typescript](http://www.type
 ### Build
 This `tsconfig.json` file allows you to build the project by using
 ```
-$ tsc --project
+$ tsc
 ```
 
 ### Setup

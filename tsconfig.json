@@ -1,20 +1,24 @@
 {
-    "version": "1.5.0",
-    "compilerOptions": {
-        "target": "es5",
-        "module": "commonjs",
-        "outDir": "./bin/"
-    },
-    "filesGlob": [
-        "./src/**/*.ts"
-    ],
-    "files": [
-        "src/browser.ts",
-        "src/chrome.d.ts",
-        "src/GoogleCalendarApi.d.ts",
-        "src/MediaStream.d.ts",
-        "src/q.d.ts",
-        "src/UltimateQuebecCalendar.ts"
-    ],
-    "exclude": []
+  "version": "1.5.0",
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "outDir": "./bin/"
+  },
+  "filesGlob": [
+    "./src/**/*.ts"
+  ],
+  "files": [
+    "src/Ajax.ts",
+    "src/Background.ts",
+    "src/Browser.ts",
+    "src/chrome.d.ts",
+    "src/es6-promise.d.ts",
+    "src/GoogleApi.ts",
+    "src/LocalStorage.ts",
+    "src/MediaStream.d.ts",
+    "src/Options.ts",
+    "src/q.d.ts"
+  ],
+  "exclude": []
 }

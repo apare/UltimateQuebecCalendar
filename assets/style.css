@@ -1,5 +1,34 @@
-.UQCalendar {
+.btn.UQCalendar {
     display: block;
     white-space: normal;
     clear: both;
+}
+body.UQCalendar {
+  overflow: hidden;
+  text-align: center;
+  min-width: 400px;
+  min-height: 300px;
+}
+body.UQCalendar:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("/assets/wait.gif");
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+body.UQCalendar.main {
+  z-index: 1;
+}
+body.UQCalendar.Loading:before {
+  opacity: 1;
+}
+body.UQCalendar .Error {
+  color: red;
 }

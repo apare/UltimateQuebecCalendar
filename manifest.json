@@ -1,6 +1,6 @@
 {
   "name": "Ultimate Quebec Calendar",
-  "version": "3.0",
+  "version": "3.2",
   "icons": {
     "16": "assets/icon16.png",
     "48": "assets/icon48.png",
@@ -14,14 +14,28 @@
     "https://www.googleapis.com/*",
     "http://www.ultimatequebec.ca/*"
   ],
+  "options_ui": {
+    "page": "assets/options.html",
+    "chrome_style": true
+  },
+  "content_scripts": [{
+    "matches": ["http://www.ultimatequebec.ca/*"],
+    "css": ["assets/style.css"],
+    "js": ["bin/Browser.js"],
+    "run_at": "document_end"
+  }],
   "background": {
     "scripts": [
       "lib/q.js",
-      "bin/UltimateQuebecCalendar.js"
+      "bin/Ajax.js",
+      "bin/GoogleApi.js",
+      "bin/LocalStorage.js",
+      "bin/Background.js"
     ]
   },
   "page_action": {
-    "default_title": "Ultimate Quebec Calendar"
+    "default_title": "Ultimate Quebec Calendar",
+    "default_popup": "assets/options.html"
   },
   "manifest_version": 2,
   "oauth2": {
