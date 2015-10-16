@@ -11,7 +11,7 @@
   "files": [
     "src/Ajax.ts",
     "src/Background.ts",
-    "src/Browser.ts",
+    "src/browser.ts",
     "src/chrome.d.ts",
     "src/es6-promise.d.ts",
     "src/GoogleApi.ts",

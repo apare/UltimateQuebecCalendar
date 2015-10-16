@@ -6,10 +6,10 @@ module LocalStorage {
     if (calandar != null) {
       return Q.when(calandar);
     }
-    return GoogleApi.createCalendar('Ultimate Québec Calendar')
-      .then((calandar) => {
-        setCalendar(calandar.id);
-        return calandar.id;
+    return GoogleApi.getCalendars()
+      .then((calandars) => {
+        setCalendar(calandars[0].id);
+        return calandars[0].id;
       })
   }
 

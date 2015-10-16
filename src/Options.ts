@@ -42,6 +42,9 @@ module UltimateQuebecCalendar {
                   code: 'UltimateQuebecCalendar.init(' + JSON.stringify(calendar.value) + ',' + JSON.stringify(events) + ')'
                 });
               })
+              .catch((error)=>{
+                  onError();
+              })
             } else {
               document.body.classList.remove('Loading');
             }
@@ -49,10 +52,17 @@ module UltimateQuebecCalendar {
         };
 
         url: "http://www.ultimatequebec.ca/members/users/6y9k"
-      },
-      (error) => {
-        console.log(error);
       })
+      .catch((error)=>{
+        onError();
+      })
+  }
+
+  function onError(){
+      GoogleApi.authenticate().then((token) => {
+        chrome.identity.removeCachedAuthToken({ token: token });
+      });
+      notAuthenticated();
   }
 
   function notAuthenticated() {
