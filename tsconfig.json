@@ -5,20 +5,14 @@
     "module": "commonjs",
     "outDir": "./bin/"
   },
-  "filesGlob": [
-    "./src/**/*.ts"
-  ],
+  "filesGlob": ["./src/**/*.ts"],
   "files": [
     "src/Ajax.ts",
     "src/Background.ts",
     "src/browser.ts",
-    "src/chrome.d.ts",
-    "src/es6-promise.d.ts",
     "src/GoogleApi.ts",
     "src/LocalStorage.ts",
-    "src/MediaStream.d.ts",
-    "src/Options.ts",
-    "src/q.d.ts"
+    "src/Options.ts"
   ],
   "exclude": []
 }

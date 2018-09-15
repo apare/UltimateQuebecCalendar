@@ -12,18 +12,20 @@
     "identity",
     "webNavigation",
     "https://www.googleapis.com/*",
-    "http://www.ultimatequebec.ca/*"
+    "https://www.ultimatequebec.ca/*"
   ],
   "options_ui": {
     "page": "assets/options.html",
     "chrome_style": true
   },
-  "content_scripts": [{
-    "matches": ["http://www.ultimatequebec.ca/*"],
-    "css": ["assets/style.css"],
-    "js": ["bin/Browser.js"],
-    "run_at": "document_end"
-  }],
+  "content_scripts": [
+    {
+      "matches": ["https://www.ultimatequebec.ca/*"],
+      "css": ["assets/style.css"],
+      "js": ["bin/Browser.js"],
+      "run_at": "document_end"
+    }
+  ],
   "background": {
     "scripts": [
       "lib/q.js",
@@ -39,7 +41,7 @@
   },
   "manifest_version": 2,
   "oauth2": {
-    "client_id" : "INSERT_CLIENT_ID",
+    "client_id": "INSERT_CLIENT_ID",
     "scopes": ["https://www.googleapis.com/auth/calendar"]
   }
 }
