@@ -1,0 +1,98 @@
+import { getCalendars, getEvents, authenticate } from "./googleApi";
+import { getCalendar, setCalendar } from "./localStorage";
+
+var main = <HTMLElement>document.querySelector(".main");
+
+async function authenticated() {
+  main.innerHTML = "";
+  document.body.classList.add("Loading");
+  const selectedCalendar = await getCalendar();
+  const calandars = await getCalendars();
+  const options = calandars.map(calendar => {
+    var option = document.createElement("option");
+    option.defaultSelected = calendar.id == selectedCalendar;
+    option.value = calendar.id;
+    option.text = calendar.summary;
+    return option;
+  });
+
+  document.body.classList.remove("Loading");
+  var title = document.createElement("h1");
+  title.innerHTML = "Select the calendar";
+  main.appendChild(title);
+  var calendar = document.createElement("select");
+  options.forEach(option => {
+    calendar.appendChild(option);
+  });
+  main.appendChild(calendar);
+
+  calendar.onchange = () => {
+    document.body.classList.add("Loading");
+    setCalendar(calendar.value);
+    chrome.tabs.query(
+      {
+        currentWindow: true,
+        active: true,
+        url: "http://www.ultimatequebec.ca/*"
+      },
+      tabs => {
+        if (tabs.length > 0) {
+          getEvents(calendar.value)
+            .then(events => {
+              document.body.classList.remove("Loading");
+              chrome.tabs.executeScript(tabs[0].id, {
+                code:
+                  "UltimateQuebecCalendar.init(" +
+                  JSON.stringify(calendar.value) +
+                  "," +
+                  JSON.stringify(events) +
+                  ")"
+              });
+            })
+            .catch(error => {
+              onError();
+            });
+        } else {
+          document.body.classList.remove("Loading");
+        }
+      }
+    );
+  };
+}
+
+function onError() {
+  authenticate().then(token => {
+    chrome.identity.removeCachedAuthToken({ token });
+  });
+  notAuthenticated();
+}
+
+function notAuthenticated() {
+  main.innerHTML = "";
+  var error = document.createElement("h1");
+  error.innerHTML = "You are not authenticated";
+  error.className = "Error";
+  main.appendChild(error);
+  var button = document.createElement("button");
+  button.innerHTML = "Login with Google";
+  button.onclick = () => {
+    document.body.classList.add("Loading");
+    chrome.identity.getAuthToken({ interactive: true }, token => {
+      document.body.classList.remove("Loading");
+      if (token == null) {
+        console.log(chrome.runtime.lastError);
+      } else {
+        authenticated();
+      }
+    });
+  };
+  main.appendChild(button);
+}
+
+chrome.identity.getAuthToken({ interactive: false }, token => {
+  if (token == null) {
+    notAuthenticated();
+  } else {
+    authenticated();
+  }
+});

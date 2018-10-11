@@ -1,18 +1,8 @@
 {
   "version": "1.5.0",
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "module": "commonjs",
     "outDir": "./bin/"
-  },
-  "filesGlob": ["./src/**/*.ts"],
-  "files": [
-    "src/Ajax.ts",
-    "src/Background.ts",
-    "src/browser.ts",
-    "src/GoogleApi.ts",
-    "src/LocalStorage.ts",
-    "src/Options.ts"
-  ],
-  "exclude": []
+  }
 }
