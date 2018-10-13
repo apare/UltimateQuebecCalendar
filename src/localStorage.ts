@@ -1,16 +1,13 @@
 import { getCalendars } from "./googleApi";
 
 export async function getCalendar() {
-  var calandar: string = localStorage.getItem("Calendar");
-  if (calandar != null) {
-    return calandar;
+  var calendar = localStorage.getItem("Calendar");
+  if (calendar) {
+    return calendar;
   }
-  const calandars = await getCalendars();
-  if (calandars.length > 0) {
-    setCalendar(calandars[0].id);
-    return calandars[0].id;
-  }
-  return null;
+
+  const [calendars] = await getCalendars();
+  return calendars.id;
 }
 
 export function setCalendar(id: string) {

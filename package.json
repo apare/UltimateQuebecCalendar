@@ -22,8 +22,15 @@
   "dependencies": {
     "@types/axios": "^0.14.0",
     "@types/chrome": "0.0.74",
+    "@types/react": "^16.4.16",
+    "@types/react-dom": "^16.0.9",
+    "awesome-typescript-loader": "^5.2.1",
     "axios": "^0.18.0",
-    "bulma": "^0.7.1"
+    "bulma": "^0.7.1",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "tslib": "^1.9.3",
+    "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
     "ts-loader": "^5.2.1",

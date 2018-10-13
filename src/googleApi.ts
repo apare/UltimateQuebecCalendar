@@ -77,15 +77,15 @@ export function getCalendars() {
 }
 
 export function createCalendar(calendarSummary: string) {
-  return call<Calendar>("POST", "calendar/v3/calendars", null, {
+  return call<Calendar>("POST", "calendar/v3/calendars", undefined, {
     summary: calendarSummary
   });
 }
 
-export function getEvents(calandarId: string) {
+export function getEvents(calendarId: string) {
   return call<EventList>(
     "GET",
-    "calendar/v3/calendars/" + encodeURIComponent(calandarId) + "/events",
+    "calendar/v3/calendars/" + encodeURIComponent(calendarId) + "/events",
     {
       maxResults: 2500,
       fields:
@@ -95,10 +95,10 @@ export function getEvents(calandarId: string) {
   ).then(({ items }) => items);
 }
 
-export function createEvent(calandarId: string, event: Event) {
+export function createEvent(calendarId: string, event: Event) {
   return call<Event>(
     "POST",
-    "calendar/v3/calendars/" + encodeURIComponent(calandarId) + "/events",
+    "calendar/v3/calendars/" + encodeURIComponent(calendarId) + "/events",
     {
       fields: "id, summary, extendedProperties/shared, location, start, end"
     },
@@ -106,15 +106,17 @@ export function createEvent(calandarId: string, event: Event) {
   );
 }
 
-export async function deleteEvent(calandarId: string, event: Event) {
-  await call(
-    "DELETE",
-    "calendar/v3/calendars/" +
-      encodeURIComponent(calandarId) +
-      "/events/" +
-      encodeURIComponent(event.id)
-  );
-  event.id = null;
+export async function deleteEvent(calendarId: string, event: Event) {
+  if (event.id) {
+    await call(
+      "DELETE",
+      "calendar/v3/calendars/" +
+        encodeURIComponent(calendarId) +
+        "/events/" +
+        encodeURIComponent(event.id)
+    );
+    event.id = undefined;
+  }
   return event;
 }
 
@@ -123,7 +125,10 @@ export function authenticate(prompt = false) {
     try {
       chrome.identity.getAuthToken({ interactive: prompt }, token => {
         if (token == null) {
-          reject(chrome.runtime.lastError.message);
+          if (chrome.runtime.lastError) {
+            reject(chrome.runtime.lastError.message);
+          }
+          reject("Something went wrong");
         } else {
           resolve(token);
         }
