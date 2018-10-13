@@ -1,2 +1,5 @@
+.DS_Store
 node_modules
-bin/*
+dist/*
+manifest.json
+dist/page_action.js.map

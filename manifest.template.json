@@ -21,19 +21,12 @@
   "content_scripts": [
     {
       "matches": ["https://www.ultimatequebec.ca/*"],
-      "css": ["assets/style.css"],
-      "js": ["bin/Browser.js"],
+      "js": ["dist/content_script.js"],
       "run_at": "document_end"
     }
   ],
   "background": {
-    "scripts": [
-      "lib/q.js",
-      "bin/Ajax.js",
-      "bin/GoogleApi.js",
-      "bin/LocalStorage.js",
-      "bin/Background.js"
-    ]
+    "scripts": ["dist/background.js"]
   },
   "page_action": {
     "default_title": "Ultimate Quebec Calendar",

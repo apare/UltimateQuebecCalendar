@@ -11,6 +11,8 @@ import { getCalendar, setCalendar } from "./localStorage";
 import { encodeParams } from "./utils";
 import i18n from "./i18n";
 
+import "./page_action.scss";
+
 interface State {
   loading: boolean;
   authenticated: boolean;
@@ -102,7 +104,7 @@ class PageAction extends React.PureComponent<{}, State> {
 
   render() {
     if (this.state.loading) {
-      return <i className="fas fa-spinner fa-pulse" />;
+      return <div className="loading" />;
     }
     if (!this.state.authenticated || !this.state.calendars) {
       return (
