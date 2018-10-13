@@ -1,18 +1,14 @@
 {
   "name": "ultimatequebeccalendar",
   "version": "1.0.0",
-  "description": "<p align=\"center\"> <a href=\"http://ultimatequebec.ca\"><img src=\"https://raw.githubusercontent.com/apare/UltimateQuebecCalendar/master/assets/icon120.png\" /></a> # Ultimate Québec Calendar **The easiest way to manage your ultimate frisbee games**",
-  "main": " ",
+  "description": "The easiest way to manage your ultimate frisbee games",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/apare/UltimateQuebecCalendar.git"
-  },
+  "repository": "git+https://github.com/apare/UltimateQuebecCalendar.git",
   "author": "Alexandre Pare <alex.pare.inc@gmail.com>",
   "license": "ISC",
   "bugs": {
@@ -35,5 +31,6 @@
   "devDependencies": {
     "ts-loader": "^5.2.1",
     "typescript": "^3.1.2"
-  }
+  },
+  "private": true
 }

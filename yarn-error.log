@@ -1,0 +1,74 @@
+Arguments: 
+  /usr/local/bin/node /usr/local/bin/yarn init
+
+PATH: 
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Yarn version: 
+  1.10.1
+
+Node version: 
+  10.11.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: canceled
+      at Interface.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:116426:13)
+      at Interface.emit (events.js:182:13)
+      at Interface._ttyWrite (readline.js:783:16)
+      at ReadStream.onkeypress (readline.js:168:10)
+      at ReadStream.emit (events.js:182:13)
+      at emitKeys (internal/readline.js:424:14)
+      at emitKeys.next (<anonymous>)
+      at ReadStream.onData (readline.js:1022:36)
+      at ReadStream.emit (events.js:182:13)
+      at addChunk (_stream_readable.js:283:12)
+
+npm manifest: 
+  {
+    "name": "ultimatequebeccalendar",
+    "version": "1.0.0",
+    "description": "<p align=\"center\"> <a href=\"http://ultimatequebec.ca\"><img src=\"https://raw.githubusercontent.com/apare/UltimateQuebecCalendar/master/assets/icon120.png\" /></a> # Ultimate Québec Calendar **The easiest way to manage your ultimate frisbee games**",
+    "main": " ",
+    "directories": {
+      "lib": "lib"
+    },
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/apare/UltimateQuebecCalendar.git"
+    },
+    "author": "Alexandre Pare <alex.pare.inc@gmail.com>",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/apare/UltimateQuebecCalendar/issues"
+    },
+    "homepage": "https://github.com/apare/UltimateQuebecCalendar#readme",
+    "dependencies": {
+      "@types/axios": "^0.14.0",
+      "@types/chrome": "0.0.74",
+      "@types/react": "^16.4.16",
+      "@types/react-dom": "^16.0.9",
+      "awesome-typescript-loader": "^5.2.1",
+      "axios": "^0.18.0",
+      "bulma": "^0.7.1",
+      "react": "^16.5.2",
+      "react-dom": "^16.5.2",
+      "tslib": "^1.9.3",
+      "webpack-node-externals": "^1.7.2"
+    },
+    "devDependencies": {
+      "ts-loader": "^5.2.1",
+      "typescript": "^3.1.2"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
