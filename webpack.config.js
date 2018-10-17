@@ -68,7 +68,7 @@ module.exports = [
 
     target: "web",
     entry: {
-      content_scripts: path.resolve(__dirname, "./src/content_scripts.tsx")
+      tab: path.resolve(__dirname, "./src/tab.tsx")
     },
     output: {
       path: path.resolve(__dirname, "dist"),

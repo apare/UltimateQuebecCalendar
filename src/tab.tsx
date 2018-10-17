@@ -1,5 +1,5 @@
 import { Event } from "./googleApi";
-import "./content_scripts.scss";
+import "./tab.scss";
 
 const oneHour = 1000 * 60 * 60;
 
@@ -20,11 +20,17 @@ export function init(calendar: string, events: Event[]) {
   calendarId = calendar;
   eventsMap = {};
 
-  const buttons = querySelectorAll(".UQCalendar,.UQCalendarTd");
+  const buttons = querySelectorAll(".UQCalendar");
+  const cells = querySelectorAll(".UQCalendarTd");
 
   // Remove all buttons
   buttons.forEach(button => {
     button.parentNode && button.parentNode.removeChild(button);
+  });
+
+  // Remove all cells
+  cells.forEach(cell => {
+    cell.parentNode && cell.parentNode.removeChild(cell);
   });
 
   // Map event by uid

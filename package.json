@@ -6,7 +6,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "build": "webpack"
+    "build": "webpack && node zip.js",
+    "dev": "webpack -w"
   },
   "repository": "git+https://github.com/apare/UltimateQuebecCalendar.git",
   "author": "Alexandre Pare <alex.pare.inc@gmail.com>",
@@ -20,6 +21,7 @@
     "@types/chrome": "0.0.74",
     "@types/react": "^16.4.16",
     "@types/react-dom": "^16.0.9",
+    "archiver": "^3.0.0",
     "awesome-typescript-loader": "^5.2.1",
     "axios": "^0.18.0",
     "bulma": "^0.7.1",
