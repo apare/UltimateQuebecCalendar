@@ -1,10 +1,14 @@
 const fs = require("fs");
 const archiver = require("archiver");
 
+if (!fs.existsSync("bin")) {
+  fs.mkdirSync("bin");
+}
+
 const now = new Date();
 
 const output = fs.createWriteStream(
-  __dirname + `/bin/UQCalendar-${new Date().toJSON()}.zip`
+  __dirname + `/bin/UQCalendar-${now.toJSON()}.zip`
 );
 const archive = archiver("zip", {
   zlib: { level: 9 }

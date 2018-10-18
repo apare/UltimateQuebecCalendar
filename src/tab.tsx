@@ -1,7 +1,8 @@
 import { Event } from "./googleApi";
 import "./tab.scss";
+import i18n from "./i18n";
 
-const oneHour = 1000 * 60 * 60;
+const gameLenght = 1000 * 60 * 75; // 1h15
 
 const gameInfoSelector = ".user-next-game, .next-games tbody tr";
 
@@ -53,7 +54,7 @@ export function init(calendar: string, events: Event[]) {
  * @param field Field information
  */
 function eventUid(start: Date, location: string, field: string): string {
-  return [start.toJSON(), location, field].join("|");
+  return [start.toJSON(), location, field].join("|").toUpperCase();
 }
 
 /**
@@ -74,12 +75,12 @@ export function updateEvent(event: Event) {
 function setupAddButton(button: HTMLElement) {
   const uid = button.getAttribute("uid") as string;
   button.className = "UQCalendar btn btn-primary";
-  button.innerHTML = '<div class="inner">Add to calendar</div>';
+  button.innerHTML = `<div class="inner">${i18n.addToCalendar}</div>`;
   button.onclick = function() {
     chrome.runtime.sendMessage({
       action: "createEvent",
       calendarId,
-      eventsMap: eventsMap[uid]
+      event: eventsMap[uid]
     });
   };
 }
@@ -87,12 +88,12 @@ function setupAddButton(button: HTMLElement) {
 function setupDeleteButton(button: HTMLElement) {
   const uid = button.getAttribute("uid") as string;
   button.className = "UQCalendar btn btn-error";
-  button.innerHTML = '<div class="inner">Remove from calendar</div>';
+  button.innerHTML = `<div class="inner">${i18n.deleteFromCalendar}</div>`;
   button.onclick = function() {
     chrome.runtime.sendMessage({
       action: "deleteEvent",
       calendarId,
-      eventsMap: eventsMap[uid]
+      event: eventsMap[uid]
     });
   };
 }
@@ -158,10 +159,12 @@ function parseGame(dom: HTMLElement) {
 
   button.setAttribute("uid", uid);
 
+  console.log(eventsMap, uid, eventsMap[uid]);
+
   if (eventsMap[uid] == null) {
     eventsMap[uid] = {
       start: { dateTime: date.toJSON() },
-      end: { dateTime: new Date(date.getTime() + oneHour).toJSON() },
+      end: { dateTime: new Date(date.getTime() + gameLenght).toJSON() },
       extendedProperties: {
         shared: {
           UQCalendar: "3",

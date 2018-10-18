@@ -66,35 +66,32 @@ module.exports = [
   {
     ...base,
 
-    target: "web",
     entry: {
       tab: path.resolve(__dirname, "./src/tab.tsx")
     },
     output: {
       path: path.resolve(__dirname, "dist"),
       filename: "[name].js",
-      publicPath: "/"
+      publicPath: "/",
+      library: "UltimateQuebecCalendar"
     }
   },
   {
     ...base,
 
-    target: "node",
     entry: {
       background: path.resolve(__dirname, "./src/background.ts")
     },
     output: {
       path: path.resolve(__dirname, "dist"),
       filename: "[name].js"
-    },
-    externals: [nodeExternals()]
+    }
   },
   {
     ...base,
 
-    target: "web",
     entry: {
-      page_action: path.resolve(__dirname, "./src/page_action.tsx")
+      options: path.resolve(__dirname, "./src/options.tsx")
     },
     output: {
       path: path.resolve(__dirname, "dist"),

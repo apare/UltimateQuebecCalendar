@@ -1,4 +1,5 @@
 import axios from "axios";
+import { isAfter } from "date-fns";
 
 export interface Calendar {
   id: string;
@@ -37,6 +38,7 @@ export interface EventExtendedPropertiesShared {
 
 export interface Event {
   id?: string;
+  htmlLink?: string;
   summary: string;
   extendedProperties: EventExtendedProperties;
   location?: string;
@@ -62,7 +64,12 @@ async function call<T>(
     params = {};
   }
   params["access_token"] = token;
-  const response = await axios({ method, url, params, data });
+  const response = await axios({
+    method,
+    url: `https://www.googleapis.com/${url}`,
+    params,
+    data
+  });
   if (response.status >= 200 && response.status < 300) {
     return response.data as T;
   } else {
@@ -89,10 +96,12 @@ export function getEvents(calendarId: string) {
     {
       maxResults: 2500,
       fields:
-        "items(id, summary, extendedProperties/shared, location, start, end)",
+        "items(id, summary, extendedProperties/shared, location, start, end, htmlLink)",
       sharedExtendedProperty: "UQCalendar=3"
     }
-  ).then(({ items }) => items);
+  ).then(({ items }) =>
+    items.sort((a, b) => (isAfter(a.start.dateTime, b.start.dateTime) ? 1 : -1))
+  );
 }
 
 export function createEvent(calendarId: string, event: Event) {

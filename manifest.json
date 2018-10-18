@@ -1,6 +1,6 @@
 {
   "name": "Ultimate Quebec Calendar",
-  "version": "3.4",
+  "version": "3.7",
   "icons": {
     "16": "assets/icon16.png",
     "48": "assets/icon48.png",
@@ -30,7 +30,12 @@
   },
   "page_action": {
     "default_title": "Ultimate Quebec Calendar",
-    "default_popup": "assets/options.html"
+    "default_popup": "assets/options.html",
+    "default_icon": {
+      "16": "assets/icon16.png",
+      "24": "assets/icon24.png",
+      "32": "assets/icon32.png"
+    }
   },
   "manifest_version": 2,
   "oauth2": {

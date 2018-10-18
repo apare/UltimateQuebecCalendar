@@ -7,7 +7,7 @@
   },
   "scripts": {
     "build": "webpack && node zip.js",
-    "dev": "webpack -w"
+    "watch": "webpack -w"
   },
   "repository": "git+https://github.com/apare/UltimateQuebecCalendar.git",
   "author": "Alexandre Pare <alex.pare.inc@gmail.com>",
@@ -24,13 +24,16 @@
     "archiver": "^3.0.0",
     "awesome-typescript-loader": "^5.2.1",
     "axios": "^0.18.0",
-    "bulma": "^0.7.1",
+    "bulma": "^0.7.2",
     "css-loader": "^1.0.0",
+    "date-fns": "^2.0.0-alpha.22",
+    "file-loader": "^2.0.0",
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
     "node-sass": "^4.9.3",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "react-svg-loader": "^2.1.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "tslib": "^1.9.3",

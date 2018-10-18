@@ -1,0 +1,126 @@
+.fa-spinner-third {
+  animation: spin 2s infinite;
+}
+
+select {
+  margin: 0 1em;
+  text-align: center;
+  padding: 0 1em;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+svg {
+  height: 1em;
+  flex-shrink: 0;
+}
+
+body,
+html {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  overflow: hidden;
+  text-align: center;
+  min-width: 250px;
+  min-height: 500px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+#main,
+.content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+#main > svg {
+  font-size: 64px;
+  margin: 16px;
+  color: #1155cc;
+}
+
+.title {
+  font-weight: bold;
+}
+
+.events {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  box-shadow: inset 0 8px 8px -8px #ccc, inset 0 -8px 8px -8px #ccc;
+  flex-grow: 1;
+  .empty {
+    padding: 1em;
+    color: #999;
+  }
+
+  .event {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0.5em;
+    border-bottom: 1px solid #ccc;
+    flex-shrink: 0;
+    time {
+      margin: 0.5em 0;
+      font-size: larger;
+      font-weight: bold;
+      text-transform: capitalize;
+    }
+    .actions {
+      margin-top: 0.5em;
+      display: flex;
+      align-items: stretch;
+      a {
+        cursor: pointer;
+        flex: 1 1 33%;
+        padding: 0.5em;
+        color: #1155cc;
+        &:hover {
+          cursor: pointer;
+          background: #1155cc;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+.buyMeACoffee {
+  display: flex;
+  padding: 0.5em;
+  flex-shrink: 0;
+  a {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    background: rgb(17, 85, 204);
+    padding: 0.5em 1em;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(190, 190, 190, 0.5);
+    color: #fff;
+    text-decoration: none;
+
+    &:hover {
+      opacity: 0.85;
+    }
+    svg {
+      padding-right: 0.5em;
+      font-size: 16px;
+    }
+  }
+}

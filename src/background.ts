@@ -1,17 +1,16 @@
 import { getCalendar } from "./localStorage";
 import {
-  authenticate,
   createEvent,
   Event,
   deleteEvent,
-  getEvents
+  getEvents,
+  authenticate
 } from "./googleApi";
 import { encodeParams } from "./utils";
 
 export type Action = "createEvent" | "deleteEvent" | "init";
 
 export function setupHandler() {
-  authenticate(true);
   chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (sender.tab && sender.tab.id) {
       onMessage(request, sender.tab.id, sendResponse);
@@ -62,19 +61,19 @@ function showError(tabId: number, error: any) {
   setPageAction(tabId, "calendar_error.png", error.toString());
   if (error == "Invalid Credentials") {
     authenticate().then(token => {
-      chrome.identity.removeCachedAuthToken({ token });
+      chrome.identity.removeCachedAuthToken({ token: token });
     });
   }
 }
 
 function setPageAction(tabId: number, icon: string, title?: string) {
-  chrome.pageAction.setIcon({
-    tabId,
-    path: `assets/${icon}`
-  });
   chrome.pageAction.setTitle({
     tabId,
     title: `Ultimate Quebec Calendar${title != null ? " - " + title : ""}`
+  });
+  chrome.pageAction.setIcon({
+    tabId,
+    path: `assets/${icon}`
   });
 }
 
