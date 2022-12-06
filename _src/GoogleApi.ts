@@ -117,7 +117,7 @@ namespace GoogleApi {
   }
 
   export function authenticate(prompt = false) {
-    var deferred = Q.defer<string>();
+    const deferred = Q.defer<string>();
     try {
       chrome.identity.getAuthToken({ interactive: prompt }, token => {
         if (token == null) {

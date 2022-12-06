@@ -1,8 +1,8 @@
 /// <reference path="./GoogleApi.ts"/>
 
-module LocalStorage {
+namespace LocalStorage {
   export function getCalendar() {
-    var calandar: string = localStorage.getItem('Calendar');
+    const calandar: string = localStorage.getItem('Calendar');
     if (calandar != null) {
       return Q.when(calandar);
     }

@@ -1,7 +1,7 @@
 /// <reference path="./GoogleApi.ts"/>
 /// <reference path="./LocalStorage.ts"/>
 
-module UltimateQuebecCalendar {
+namespace UltimateQuebecCalendar {
   var main = <HTMLElement>document.querySelector(".main");
 
   function authenticated() {
@@ -12,7 +12,7 @@ module UltimateQuebecCalendar {
         return GoogleApi.getCalendars()
           .then<HTMLOptionElement[]>((calandars) => {
             return calandars.map((calendar) => {
-              var option = document.createElement('option');
+              const option = document.createElement('option');
               option.defaultSelected = calendar.id == selectedCalendar;
               option.value = calendar.id;
               option.text = calendar.summary;
@@ -22,10 +22,10 @@ module UltimateQuebecCalendar {
       })
       .then((options) => {
         document.body.classList.remove('Loading');
-        var title = document.createElement('h1');
+        const title = document.createElement('h1');
         title.innerHTML = 'Select the calendar';
         main.appendChild(title);
-        var calendar = document.createElement('select');
+        const calendar = document.createElement('select');
         options.forEach((option) => {
           calendar.appendChild(option);
         });
@@ -51,7 +51,7 @@ module UltimateQuebecCalendar {
           })
         };
 
-        url: "http://www.ultimatequebec.ca/members/users/6y9k"
+        "http://www.ultimatequebec.ca/members/users/6y9k"
       })
       .catch((error)=>{
         onError();
@@ -67,11 +67,11 @@ module UltimateQuebecCalendar {
 
   function notAuthenticated() {
     main.innerHTML = '';
-    var error = document.createElement('h1');
+    const error = document.createElement('h1');
     error.innerHTML = 'You are not authenticated';
     error.className = "Error";
     main.appendChild(error);
-    var button = document.createElement('button');
+    const button = document.createElement('button');
     button.innerHTML = 'Login with Google';
     button.onclick = () => {
       document.body.classList.add('Loading');

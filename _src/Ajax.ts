@@ -2,8 +2,8 @@ class Rest {
   constructor(private baseUrl: string) {}
 
   static encodeQueryString(data) {
-    var ret = [];
-    for (var d in data) {
+    const ret = [];
+    for (const d in data) {
       ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
     }
     return ret.join("&");
@@ -15,14 +15,14 @@ class Rest {
     queryString?: { [key: string]: any },
     data?: { [key: string]: any }
   ) {
-    var deferred = Q.defer<T>();
-    var request = new XMLHttpRequest();
+    const deferred = Q.defer<T>();
+    const request = new XMLHttpRequest();
     request.open(
       methode,
       this.baseUrl + url + "?" + Rest.encodeQueryString(queryString)
     );
     request.onload = function() {
-      var response: any;
+      let response: any;
       try {
         response = JSON.parse(request.response);
       } catch (e) {

@@ -16,15 +16,15 @@ namespace UltimateQuebecCalendar {
   export function init(calandar: string, events: GoogleApi.Event[]) {
     calandarId = calandar;
     eventsMap = {};
-    var buttons = document.querySelectorAll(".UQCalendar,.UQCalendarTd");
+    const buttons = document.querySelectorAll(".UQCalendar,.UQCalendarTd");
     for (var i = 0; i < buttons.length; i++) {
-      var button = buttons.item(i);
+      const button = buttons.item(i);
       button.parentNode.removeChild(button);
     }
     events.forEach(event => {
       eventsMap[event.extendedProperties.shared.Uid] = event;
     });
-    var games = document.querySelectorAll(nextGameSelector);
+    const games = document.querySelectorAll(nextGameSelector);
     for (var i = 0; i < games.length; i++) {
       parseGame(games.item(i));
     }
@@ -35,8 +35,8 @@ namespace UltimateQuebecCalendar {
   }
 
   export function updateEvent(event: GoogleApi.Event) {
-    var uid = event.extendedProperties.shared.Uid;
-    var buttons = document.querySelectorAll(
+    const uid = event.extendedProperties.shared.Uid;
+    const buttons = document.querySelectorAll(
       ".UQCalendar[uid=" + JSON.stringify(uid) + "]"
     );
     eventsMap[uid] = event;
@@ -76,36 +76,36 @@ namespace UltimateQuebecCalendar {
   }
 
   function parseGame(dom) {
-    var team1: string, team2: string, location: string, field: string;
+    let team1: string, team2: string, location: string, field: string;
 
-    var button = document.createElement("div");
+    const button = document.createElement("div");
     button.className = "btn btn-primary";
 
     if (dom.tagName == "TR") {
-      var teams = dom.querySelectorAll(".team");
+      const teams = dom.querySelectorAll(".team");
       team1 = teams.item(0).innerText;
       team2 = teams.item(1).innerText;
-      var fieldAndSide = dom
+      const fieldAndSide = dom
         .querySelector("td:last-child")
         .innerText.split(", ");
       location = fieldAndSide[0];
       field = fieldAndSide[1];
-      var td = document.createElement("td");
+      const td = document.createElement("td");
       td.className = "UQCalendarTd";
       td.appendChild(button);
       dom.appendChild(td);
     } else {
       team1 = dom.querySelector(".my-team a").innerHTML;
       team2 = dom.querySelector(".against-team a").innerHTML;
-      var place = dom.querySelector(".game-place");
+      const place = dom.querySelector(".game-place");
       location = place.innerHTML;
       field = place.nextElementSibling.innerHTML;
       dom.appendChild(button);
     }
 
-    var date = new Date(dom.querySelector("time").getAttribute("datetime"));
-    var summary = team1 + " VS " + team2 + "\n" + location + ", " + field;
-    var uid = eventUid(date, location, field);
+    const date = new Date(dom.querySelector("time").getAttribute("datetime"));
+    const summary = team1 + " VS " + team2 + "\n" + location + ", " + field;
+    const uid = eventUid(date, location, field);
 
     button.setAttribute("uid", uid);
 

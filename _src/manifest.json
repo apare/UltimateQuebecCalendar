@@ -39,9 +39,5 @@
     "default_title": "Ultimate Quebec Calendar",
     "default_popup": "assets/options.html"
   },
-  "manifest_version": 2,
-  "oauth2": {
-    "client_id": "INSERT_CLIENT_ID",
-    "scopes": ["https://www.googleapis.com/auth/calendar"]
-  }
+  "manifest_version": 2
 }

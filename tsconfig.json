@@ -1,18 +1,15 @@
 {
-  "version": "1.5.0",
   "compilerOptions": {
-    "target": "es5",
+    "strict": true,
     "module": "commonjs",
-    "outDir": "./bin/"
+    "target": "es6",
+    "esModuleInterop": true,
+    "sourceMap": false,
+    "rootDir": "src",
+    "outDir": "dist/js",
+    "noEmitOnError": true,
+    "jsx": "react",
+    "typeRoots": ["node_modules/@types"]
   },
-  "filesGlob": ["./src/**/*.ts"],
-  "files": [
-    "src/Ajax.ts",
-    "src/Background.ts",
-    "src/browser.ts",
-    "src/GoogleApi.ts",
-    "src/LocalStorage.ts",
-    "src/Options.ts"
-  ],
-  "exclude": []
+  "exclude": ["node_modules", "_src"]
 }
