@@ -2,7 +2,6 @@
   "extends": ["eslint:recommended", "prettier"],
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint", "autofix", "react", "react-hooks"],
-  "rules": { "autofix/sort-imports": ["error"] },
   "settings": {
     "react": {
       "version": "detect"

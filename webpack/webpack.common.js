@@ -33,6 +33,14 @@ module.exports = {
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
+    fallback: {
+      buffer: false,
+      util: false,
+      stream: false,
+      crypto: false,
+      assert: false,
+      url: false,
+    },
   },
   plugins: [
     new CopyPlugin({
