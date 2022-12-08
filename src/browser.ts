@@ -79,8 +79,7 @@ function parseGame(dom: HTMLElement) {
   }
 
   const date = new Date(strDate);
-  const summary = team1 + " VS " + team2;
-  const description = team1 + " VS " + team2 + "\n" + location + ", " + field;
+  const summary = team1 + " VS " + team2 + "\n" + location + ", " + field;
 
   const uid = eventUid(date, location, field);
 
@@ -90,7 +89,6 @@ function parseGame(dom: HTMLElement) {
     start: date.toJSON(),
     end: new Date(date.getTime() + gameLength).toJSON(),
     id: uid,
-    description,
     summary,
     location,
   };
@@ -115,7 +113,8 @@ async function updateEvents() {
     button.parentNode?.removeChild(button);
   }
   events.forEach((event) => {
-    eventsMap[event.ultimateQuebecId] = event.id;
+    eventsMap[event.extendedProperties.shared.ultimateQuebecId] =
+      event.id as string;
   });
   const games = document.querySelectorAll<HTMLElement>(gameSelector);
   for (let i = 0; i < games.length; i++) {

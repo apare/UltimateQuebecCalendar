@@ -5,34 +5,23 @@ import {
   GetEventsMessageResponse,
 } from "./message";
 import { getCalendarId } from "./getOptions";
-import { getOauthToken } from "./getOauthToken";
-import { google } from "googleapis";
-
-const calendar = google.calendar({ version: "v3" });
+import { createEvent, deleteEvent, getEvents } from "./googleApi";
 
 async function processMessage(request: BackgroundMessage) {
   switch (request.type) {
     case "createEvent": {
-      const { id, location, summary, description, start, end } =
-        request.payload;
-      const {
-        data: { id: eventId },
-      } = await calendar.events.insert({
-        oauth_token: await getOauthToken(),
-        calendarId: getCalendarId(),
-        requestBody: {
-          location,
-          summary,
-          description,
-          extendedProperties: {
-            shared: {
-              ultimateQuebecCalendar: "0.1",
-              ultimateQuebecId: id,
-            },
+      const { id, location, summary, start, end } = request.payload;
+      const { id: eventId } = await createEvent(getCalendarId(), {
+        location,
+        summary,
+        extendedProperties: {
+          shared: {
+            ultimateQuebecVersion: "0.1",
+            ultimateQuebecId: id,
           },
-          start: { dateTime: start },
-          end: { dateTime: end },
         },
+        start: { dateTime: start },
+        end: { dateTime: end },
       });
       return {
         eventId,
@@ -40,29 +29,17 @@ async function processMessage(request: BackgroundMessage) {
     }
     case "deleteEvent": {
       const { eventId } = request.payload;
-      await calendar.events.delete({
-        oauth_token: await getOauthToken(),
-        calendarId: getCalendarId(),
-        eventId,
-      });
+      await deleteEvent(getCalendarId(), eventId);
       break;
     }
     case "getEvents": {
-      const events = await calendar.events.list({
-        oauth_token: await getOauthToken(),
-        calendarId: getCalendarId(),
-      });
+      const events = await getEvents(getCalendarId());
       return {
-        events:
-          events.data.items
-            ?.map(({ id, extendedProperties }) => ({
-              ultimateQuebecId: extendedProperties?.shared?.ultimateQuebecId,
-              id,
-            }))
-            .filter(
-              (event): event is { id: string; ultimateQuebecId: string } =>
-                !!event.id && !!event.ultimateQuebecId
-            ) || [],
+        events: events.filter(
+          (event) =>
+            !!event.extendedProperties?.shared?.ultimateQuebecId &&
+            event.extendedProperties?.shared?.ultimateQuebecVersion === "0.1"
+        ),
       } as GetEventsMessageResponse;
     }
   }

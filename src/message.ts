@@ -1,9 +1,7 @@
-export type Event = {
-  id: string;
-};
+import { Event } from "./googleApi";
 
 export interface GetEventsMessageResponse {
-  events: { id: string; ultimateQuebecId: string }[];
+  events: Event[];
 }
 
 export interface CreateEventResponse {
@@ -26,7 +24,6 @@ export type CreateEventMessage = {
   type: "createEvent";
   payload: {
     id: string;
-    description: string;
     location: string;
     summary: string;
     start: string;

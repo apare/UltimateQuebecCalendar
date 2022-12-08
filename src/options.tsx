@@ -1,12 +1,8 @@
-import { google } from "googleapis";
 import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
-import ReactDOM from "react-dom";
 import { Options } from "./getOptions";
 import waitGif from "./assets/wait.gif";
-
-type Calendar = { id: string; summary: string };
-
-const calendar = google.calendar({ version: "v3" });
+import { Calendar, getCalendars } from "./googleApi";
+import ReactDOM from "react-dom";
 
 const Options = () => {
   const [options, setOptions] = useState<Options>();
@@ -14,31 +10,33 @@ const Options = () => {
   const [authError, setAuthError] = useState<unknown>();
   const [calendars, setCalendars] = useState<Calendar[]>();
 
+  const login = useCallback(() => {
+    try {
+      chrome.identity.getAuthToken({ interactive: true }, setAuthToken);
+    } catch (e) {
+      console.log("getAuthToken failed", e);
+      setAuthError(e);
+    }
+  }, []);
+
   useEffect(() => {
     try {
       chrome.identity.getAuthToken({}, setAuthToken);
     } catch (e) {
-      console.log("getAuthToken without interactive mode failed", e);
-      try {
-        chrome.identity.getAuthToken({ interactive: true }, setAuthToken);
-      } catch (e) {
-        console.log("getAuthToken with interactive mode failed", e);
-        setAuthError(e);
-      }
+      console.log("getAuthToken failed", e);
+      setAuthError(e);
     }
-  });
+  }, []);
 
   useEffect(() => {
     if (authToken) {
-      calendar.calendarList.list({ oauth_token: authToken }, (e, calendars) => {
-        setCalendars(
-          calendars?.data.items?.map(
-            ({ id, summary }) => ({ id, summary } as Calendar)
-          )
-        );
+      void getCalendars().then((calendars) => {
+        setCalendars(calendars);
       });
+    } else {
+      setCalendars([]);
     }
-  }, []);
+  }, [authToken]);
 
   useEffect(() => {
     chrome.storage.sync.get(["options"], ({ options }) => {
@@ -63,18 +61,8 @@ const Options = () => {
     [options]
   );
 
-  const retryLogin = useCallback(() => {
-    setAuthError(undefined);
-    try {
-      chrome.identity.getAuthToken({ interactive: true }, setAuthToken);
-    } catch (e) {
-      console.log("getAuthToken with interactive mode failed", e);
-      setAuthError(e);
-    }
-  }, []);
-
   if (authError) {
-    return <button onClick={retryLogin}>Retry</button>;
+    return <button onClick={login}>Retry</button>;
   }
 
   if (!authToken) {
